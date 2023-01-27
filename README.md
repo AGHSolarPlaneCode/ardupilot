@@ -1,19 +1,32 @@
 # (Solar-Plane Usage)
 ## Set-up for SITL
-1. Clone repo and run `git submodule update --init --recursive`
 
-2. Install poetry
+Prerequisites:
+- poetry
 
-3. Run:
+First usage:
+1. Clone the repo
+2. Run
+```bash
+git submodule update --init --recursive
+poetry shell
+poetry install
+```
+
+To run simulation:
+
 ```bash
 poetry install
 poetry shell
-./run_sim.sh
+./run_sim.sh <drone|plane>
 ```
+
+Note: When running simulation the first time the GUI may not show. Try restarting the simulation.
 
 ## SITL terminal commands
 - 'arm throttle' - Arming the simulated vehicle
 - 'mode auto' - Switch to autonomous mode
+- 'mode guided' - Switch to guided mode
 
 # ArduPilot Project
 
