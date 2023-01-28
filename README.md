@@ -1,8 +1,10 @@
 # (Solar-Plane Usage)
 ## Set-up for SITL
-Install:
-- poetry
+1. Clone repo and run `git submodule update --init --recursive`
 
+2. Install poetry
+
+3. Run:
 ```bash
 poetry install
 poetry shell
