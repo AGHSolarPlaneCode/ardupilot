@@ -225,6 +225,8 @@ def kill_tasks_psutil(victims):
 def kill_tasks_pkill(victims):
     """Shell out to pkill(1) to kill processed by name"""
     for victim in victims:  # pkill takes a single pattern, so iterate
+        # for windows:
+        # cmd = ["taskkill /IM ", victim[:15], ' /F']
         cmd = ["pkill", victim[:15]]  # pkill matches only first 15 characters
         run_cmd_blocking("pkill", cmd, quiet=True)
 

@@ -12,7 +12,8 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     lsb-release \
     sudo \
     tzdata \
-    bash-completion
+    bash-completion \
+    net-tools
 
 COPY Tools/environment_install/install-prereqs-ubuntu.sh /ardupilot/Tools/environment_install/
 COPY Tools/completion /ardupilot/Tools/completion/
@@ -27,7 +28,7 @@ RUN chown -R ${USER_NAME}:${USER_NAME} /${USER_NAME}
 
 USER ${USER_NAME}
 
-ENV SKIP_AP_EXT_ENV=1 SKIP_AP_GRAPHIC_ENV=1 SKIP_AP_COV_ENV=1 SKIP_AP_GIT_CHECK=1
+ENV SKIP_AP_EXT_ENV=1 SKIP_AP_GRAPHIC_ENV=0 SKIP_AP_COV_ENV=1 SKIP_AP_GIT_CHECK=1
 RUN Tools/environment_install/install-prereqs-ubuntu.sh -y
 
 # add waf alias to ardupilot waf to .bashrc
@@ -51,6 +52,8 @@ ENV BUILDLOGS=/tmp/buildlogs
 # Cleanup
 RUN sudo apt-get clean \
     && sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN git config --global --add safe.directory /ardupilot
 
 ENV CCACHE_MAXSIZE=1G
 ENTRYPOINT ["/ardupilot_entrypoint.sh"]

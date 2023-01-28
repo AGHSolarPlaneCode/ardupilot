@@ -232,6 +232,7 @@ else
   SITL_PKGS+=" python-argparse"
 fi
 
+SITL_PKGS_WX4=" "
 # Check for graphical package for MAVProxy
 if [[ $SKIP_AP_GRAPHIC_ENV -ne 1 ]]; then
   if [ ${RELEASE_CODENAME} == 'bullseye' ]; then
@@ -241,13 +242,14 @@ if [[ $SKIP_AP_GRAPHIC_ENV -ne 1 ]]; then
            [ ${RELEASE_CODENAME} == 'ulyssa'  ]; then
     SITL_PKGS+=" libjpeg8-dev"
   elif apt-cache search python-wxgtk3.0 | grep wx; then
-      SITL_PKGS+=" python-wxgtk3.0"
+    #   SITL_PKGS+=" python-wxgtk3.0"
+    :
   elif apt-cache search python3-wxgtk4.0 | grep wx; then
       # see below
       :
   else
       # we only support back to trusty:
-      SITL_PKGS+=" python-wxgtk2.8"
+    #   SITL_PKGS+=" python-wxgtk2.8"
       SITL_PKGS+=" fonts-freefont-ttf libfreetype6-dev libjpeg8-dev libpng12-0 libportmidi-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-ttf2.0-dev libsdl1.2-dev"  # for pygame
   fi
   if [ ${RELEASE_CODENAME} == 'bullseye' ] ||
@@ -255,7 +257,7 @@ if [[ $SKIP_AP_GRAPHIC_ENV -ne 1 ]]; then
          [ ${RELEASE_CODENAME} == 'focal' ] ||
          [ ${RELEASE_CODENAME} == 'ulyssa' ] ||
          [ ${RELEASE_CODENAME} == 'jammy' ]; then
-    SITL_PKGS+=" python3-wxgtk4.0"
+    SITL_PKGS_WX4="python3-wxgtk4.0 "
     SITL_PKGS+=" fonts-freefont-ttf libfreetype6-dev libpng16-16 libportmidi-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-ttf2.0-dev libsdl1.2-dev"  # for pygame
   fi
 fi
@@ -272,8 +274,13 @@ if [ -n "$LBTBIN" ]; then
     SITL_PKGS+=" libtool-bin"
 fi
 
+
+# install wxgtk separatelly and pass polish language options to it
+echo "1" | echo "74" | $APT_GET install -y $SITL_PKGS_WX4
 # Install all packages
-$APT_GET install $BASE_PKGS $SITL_PKGS $PX4_PKGS $ARM_LINUX_PKGS $COVERAGE_PKGS
+echo "1" | echo "74" | $APT_GET install $BASE_PKGS $SITL_PKGS $PX4_PKGS $ARM_LINUX_PKGS $COVERAGE_PKGS
+
+
 # Update Pip and Setuptools on old distro
 if [ ${RELEASE_CODENAME} == 'bionic' ]; then
     # use fixed version for package that drop python2 support
