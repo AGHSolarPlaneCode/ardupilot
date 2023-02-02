@@ -13,7 +13,8 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     sudo \
     tzdata \
     bash-completion \
-    net-tools
+    net-tools \
+    python3-wxgtk4.0
 
 COPY Tools/environment_install/install-prereqs-ubuntu.sh /ardupilot/Tools/environment_install/
 COPY Tools/completion /ardupilot/Tools/completion/

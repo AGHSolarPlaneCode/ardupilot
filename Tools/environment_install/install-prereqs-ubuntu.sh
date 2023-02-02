@@ -276,9 +276,9 @@ fi
 
 
 # install wxgtk separatelly and pass polish language options to it
-echo "1" | echo "74" | $APT_GET install -y $SITL_PKGS_WX4
+# $APT_GET install -y $SITL_PKGS_WX4
 # Install all packages
-echo "1" | echo "74" | $APT_GET install $BASE_PKGS $SITL_PKGS $PX4_PKGS $ARM_LINUX_PKGS $COVERAGE_PKGS
+$APT_GET install $BASE_PKGS $SITL_PKGS $PX4_PKGS $ARM_LINUX_PKGS $COVERAGE_PKGS
 
 
 # Update Pip and Setuptools on old distro
@@ -382,6 +382,8 @@ fi
 if $IS_DOCKER; then
     echo "Finalizing ArduPilot env for Docker"
     echo "source ~/.ardupilot_env">> ~/.bashrc
+    echo 'export PATH="$PATH:$HOME/.local/bin"' >> ~/.bashrc
+    source ~/.bashrc
 fi
 
 echo "---------- $0 end ----------"
