@@ -1,4 +1,4 @@
-version: "0.1"
+version: "3"
 services:
   ardupilot:
     image: brzozia/ardupilot-solarplane:latest
@@ -6,3 +6,6 @@ services:
       DISPLAY: "192.168.1.32:0.0"
     volumes:
       - ./:/ardupilot
+    stdin_open: true
+    tty: true
+
