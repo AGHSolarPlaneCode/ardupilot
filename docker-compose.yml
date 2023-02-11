@@ -8,4 +8,14 @@ services:
       - ./:/ardupilot
     stdin_open: true
     tty: true
+  ardupilot-unix:
+    image: brzozia/ardupilot-solarplane:latest
+    environment: 
+      - DISPLAY=${DISPLAY}
+    volumes:
+      - ./:/ardupilot
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    network_mode: host
+    stdin_open: true
+    tty: true
 

@@ -29,7 +29,7 @@ RUN chown -R ${USER_NAME}:${USER_NAME} /${USER_NAME}
 
 USER ${USER_NAME}
 
-ENV SKIP_AP_EXT_ENV=1 SKIP_AP_GRAPHIC_ENV=0 SKIP_AP_COV_ENV=1 SKIP_AP_GIT_CHECK=1
+ENV SKIP_AP_EXT_ENV=1 SKIP_AP_GRAPHIC_ENV=0 SKIP_AP_COV_ENV=1 SKIP_AP_GIT_CHECK=1 
 RUN Tools/environment_install/install-prereqs-ubuntu.sh -y
 
 # add waf alias to ardupilot waf to .bashrc
